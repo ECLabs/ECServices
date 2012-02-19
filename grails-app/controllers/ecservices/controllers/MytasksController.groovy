@@ -25,15 +25,11 @@ class MytasksController {
 	@PostConstruct
 	def initialize() {
 		println "############### initialize() in MytasksController"
-		//graphDb = new EmbeddedGraphDatabase( DB_PATH );
-		//registerShutdownHook();
-		
 	}
 	
 	@PreDestroy
 	def cleanUp() {
 		println "############### cleanUp()  - Shutting down MytasksController"
-		//graphDb.shutdown();
 	}
 	
 	// Google Sites API Oauth2
