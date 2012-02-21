@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>ECServices_temp</name>
+	<name>ECServices</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -26,7 +26,7 @@
 		<link>
 			<name>.link_to_grails_plugins</name>
 			<type>2</type>
-			<locationURI>GRAILS_ROOT/1.3.7/projects/ECServices_temp/plugins</locationURI>
+			<locationURI>GRAILS_ROOT/1.3.7/projects/ECServices/plugins</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
