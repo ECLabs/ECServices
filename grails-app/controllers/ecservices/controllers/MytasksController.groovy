@@ -44,8 +44,10 @@ class MytasksController {
 	def PROTECTED_RESOURCE_URL = "https://sites.google.com";
 
 	def index = {
-		def currentHostName = "http://" + this.request.getServerName()
+		 
+		def currentHostName = "http://" + this.request.getRemoteHost()
 		def REDIRECT_URI2 = currentHostName + REDIRECT_URI
+		println REDIRECT_URI2
 		AUTHORIZE_URL = "https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI2}&scope=${SCOPE}&response_type=${RESPONSE_TYPE}";
 		
 		System.out.println("=== " + NETWORK_NAME + "'s OAuth Workflow ===");
@@ -66,7 +68,7 @@ class MytasksController {
 	
 	def getTasks = {
 		
-		def currentHostName = "http://" + this.request.getServerName()
+		def currentHostName = "http://" + this.request.getRemoteHost()
 		def REDIRECT_URI2 = currentHostName + REDIRECT_URI
 
 		if(session.googleAccessToken == null)
