@@ -36,7 +36,8 @@ class MytasksController {
 	def NETWORK_NAME = "Google"
 	def CLIENT_ID = "690667165235-seq5tjj5vfsr7cd7irfjrdoecifjsf40.apps.googleusercontent.com"
 	def CLIENT_SECRET = "jcYwNY7Y_8MTMyT27GyRgy7g"
-	def REDIRECT_URI = ":8080/ECServices/mytasks/getTasks"
+	def SERVER_URL = "${grailsApplication.config.grails.serverURL}"
+	def REDIRECT_URI = "${SERVER_URL}/mytasks/getTasks"
 	def SCOPE = "https://sites.google.com/feeds/"
 	def RESPONSE_TYPE = "code"
 	def AUTHORIZE_URL = "https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPE}&response_type=${RESPONSE_TYPE}";
@@ -47,8 +48,8 @@ class MytasksController {
 		 
 		def currentHostName = "http://" + this.request.getRemoteHost()
 		def REDIRECT_URI2 = currentHostName + REDIRECT_URI
-		println REDIRECT_URI2
-		AUTHORIZE_URL = "https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI2}&scope=${SCOPE}&response_type=${RESPONSE_TYPE}";
+		//println REDIRECT_URI2
+		//AUTHORIZE_URL = "https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPE}&response_type=${RESPONSE_TYPE}";
 		
 		System.out.println("=== " + NETWORK_NAME + "'s OAuth Workflow ===");
 		session.googleAccessToken = null
@@ -79,7 +80,7 @@ class MytasksController {
 				
 				// get access and refresh tokens
 				def http = new HTTPBuilder( 'https://accounts.google.com/o/oauth2/'  )
-				def postBody = [code:session.verifierCodeGoogle,client_id:CLIENT_ID,client_secret:CLIENT_SECRET,redirect_uri:REDIRECT_URI2,grant_type:'authorization_code'] // will be url-encoded
+				def postBody = [code:session.verifierCodeGoogle,client_id:CLIENT_ID,client_secret:CLIENT_SECRET,redirect_uri:REDIRECT_URI,grant_type:'authorization_code'] // will be url-encoded
 				
 				http.post( path: 'token', body: postBody, requestContentType: URLENC ) { resp, json ->
 				  println "response status: ${resp.statusLine}"
@@ -166,7 +167,7 @@ class MytasksController {
 					tasks.push task
 					//render "hello"
 				}
-				println REDIRECT_URI2
+				println REDIRECT_URI
 				render tasks as JSON
 			}
 			
